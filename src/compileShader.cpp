@@ -30,7 +30,7 @@ unsigned int compileShader(const char * vSRC, const char * fSRC)
     if(!success)
     {
         glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
-        std::fprintf(stderr, "ERROR::SHADER::LINKING_FAILED\n%s\n", infoLog);
+        std::fprintf(stderr, "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
