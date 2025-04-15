@@ -7,11 +7,13 @@ project(SuperCraftCPP VERSION 0.1 LANGUAGES CXX C)
 
 add_subdirectory(lib/glfw)
 
-add_executable(SuperCraft src/main.cpp lib/glad/src/glad.c)
+add_executable(SuperCraft src/main.cpp src/compileShader.cpp lib/glad/src/glad.c)
 
 set_property(TARGET SuperCraft PROPERTY CXX_STANDARD 23)
 
-target_link_libraries(SuperCraft glm glfw)
+find_package(OpenGL)
+
+target_link_libraries(SuperCraft glm glfw OpenGL::GL)
 
 add_subdirectory(lib/glm/)
 
