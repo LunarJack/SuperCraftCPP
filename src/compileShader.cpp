@@ -13,6 +13,10 @@ unsigned int compileShader(const char * vSRC, const char * fSRC)
         glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
         std::fprintf(stderr, "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s\n", infoLog);
     }
+    else
+    {
+        std::print("Vertex shader compiled\n");
+    }
     unsigned int fragmentShader{glCreateShader(GL_FRAGMENT_SHADER)};
     glShaderSource(fragmentShader, 1, &fSRC, nullptr);
     glCompileShader(fragmentShader);
@@ -21,6 +25,10 @@ unsigned int compileShader(const char * vSRC, const char * fSRC)
     {
         glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
         std::fprintf(stderr, "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n%s\n", infoLog);
+    }
+    else
+    {
+        std::print("Fragment shader compiled\n");
     }
     unsigned int shaderProgram{glCreateProgram()};
     glAttachShader(shaderProgram, vertexShader);
@@ -31,6 +39,10 @@ unsigned int compileShader(const char * vSRC, const char * fSRC)
     {
         glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
         std::fprintf(stderr, "ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
+    }
+    else
+    {
+        std::print("Shaders linked\n");
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);

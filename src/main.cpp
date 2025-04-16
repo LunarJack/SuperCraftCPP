@@ -29,6 +29,10 @@ void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    else if(glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
 }
 
 int main(int argc, char * argv[])
@@ -40,7 +44,7 @@ int main(int argc, char * argv[])
     }
     else
     {
-        std::printf("GLFW initialized\n");
+        std::print("GLFW initialized\n");
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -57,7 +61,7 @@ int main(int argc, char * argv[])
     }
     else
     {
-        std::printf("GLFW window created\n");
+        std::print("GLFW window created\n");
     }
     glfwMakeContextCurrent(window);
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -68,11 +72,10 @@ int main(int argc, char * argv[])
     }
     else
     {
-        std::printf("GLAD initialized\n");
+        std::print("GLAD initialized\n");
     }
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     unsigned int shaderProgram{compileShader(vertexShaderSource, fragmentShaderSource)};
     float vertices[]{0.5f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f, -0.5f,  0.5f, 0.0f};
     unsigned int indices[]{0, 1, 3, 1, 2, 3};
