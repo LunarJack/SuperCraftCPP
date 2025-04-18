@@ -5,9 +5,8 @@ set(GLM_STATIC ON)
 
 project(SuperCraftCPP VERSION 0.1 LANGUAGES CXX C)
 
-add_subdirectory(lib/glfw)
-
-add_executable(SuperCraft src/main.cpp src/compileShader.cpp lib/glad/src/glad.c)
+add_subdirectory(lib/glfw) 
+add_executable(SuperCraft src/main.cpp src/shader.cpp lib/glad/src/glad.c)
 
 set_property(TARGET SuperCraft PROPERTY CXX_STANDARD 23)
 

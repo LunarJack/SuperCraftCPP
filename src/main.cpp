@@ -1,21 +1,7 @@
 #include <glad/glad.h>
-#include <compileShader.hpp>
-
-const char * vertexShaderSource{"#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "out vec4 vertexColor;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos, 1.0);\n"
-    "   vertexColor = vec4(0.5, 0.0, 0.0, 1.0);\n"
-    "}\0"};
-const char * fragmentShaderSource{"#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "in vec4 vertexColor;\n"
-    "void main()\n"
-    "{\n"
-    "    FragColor = vertexColor;\n"
-    "}\n\0"};
+#include <GLFW/glfw3.h>
+#include <iostream>
+#include <shader.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -76,7 +62,7 @@ int main(int argc, char * argv[])
     }
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    unsigned int shaderProgram{compileShader(vertexShaderSource, fragmentShaderSource)};
+    Shader shader("./res/shader.vs", "./res/shader.fs");
     float vertices[]{0.5f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f, -0.5f,  0.5f, 0.0f};
     unsigned int indices[]{0, 1, 3, 1, 2, 3};
     unsigned int VBO, VAO, EBO;
@@ -95,10 +81,10 @@ int main(int argc, char * argv[])
         //Check inputs
         processInput(window);
         //Rendering code
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.875f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         //Draw triangle
-        glUseProgram(shaderProgram);
+        shader.use();
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //Check and call events and swap buffers
@@ -108,7 +94,6 @@ int main(int argc, char * argv[])
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteProgram(shaderProgram);
     glfwTerminate();
     return 0;
 }
